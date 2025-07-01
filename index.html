@@ -40,7 +40,7 @@
   </style>
 </head>
 <body>
-  <h2>Por favor responda ao inquérito abaixo</h2>
+  <h2>Por favor responda ao inquérito que vai assistir</h2>
 
   <iframe src="https://iscteiul.co1.qualtrics.com/jfe/form/SV_0feM1WMf9sHxTAa"></iframe>
 
@@ -52,27 +52,22 @@
     let inactivityTimer;
 
     function closeAvatar() {
-      // Remove o iframe do avatar da Soul Machines
-      const smIframe = document.querySelector('iframe[src*="soulmachines"]');
+      const smIframe = document.getElementById('sm-widget-iframe');
       if (smIframe) {
         smIframe.remove();
       }
 
-      // Remove o script também (opcional)
       const smScript = document.getElementById('sm-widget');
       if (smScript) {
         smScript.remove();
       }
 
-      // Mostra a mensagem ao utilizador
       document.getElementById('timeout-message').style.display = 'block';
     }
 
     function startInactivityTimer() {
       clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => {
-        closeAvatar();
-      }, 10000); // 10 segundos
+      inactivityTimer = setTimeout(closeAvatar, 10000); // 10 segundos
     }
 
     window.onload = startInactivityTimer;
