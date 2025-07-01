@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Inquérito com Avatar</title>
+
+  <!-- Avatar da Soul Machines -->
   <script 
     src="https://static.soulmachines.com/widget-snippet-1.12.0.min.js" 
     data-sm-api-key="eyJzb3VsSWQiOiJkZG5hLWlzY3RlODQ0ZC0tby1tZXUtcHJpbWVpcm8tcHJvaiIsImF1dGhTZXJ2ZXIiOiJodHRwczovL2RoLnNvdWxtYWNoaW5lcy5jbG91ZC9hcGkvand0IiwiYXV0aFRva2VuIjoiYXBpa2V5X3YxXzczNTZlOTYxLTc0YzgtNDNkOC1hYWM1LWU5ZmYzZDA5ZDhkNCJ9"
     data-sm-layout="fullFrame">
   </script>
+
   <style>
     body {
       font-family: sans-serif;
@@ -16,16 +19,47 @@
       background-color: #f9f9f9;
       text-align: center;
     }
+
     iframe {
       width: 100%;
       max-width: 1000px;
       height: 800px;
       border: none;
     }
+
+    #timeout-message {
+      display: none;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #ffe0e0;
+      color: #900;
+      border: 1px solid #d00;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
   <h2>Por favor responda ao inquérito abaixo</h2>
+
   <iframe src="https://iscteiul.co1.qualtrics.com/jfe/form/SV_0feM1WMf9sHxTAa"></iframe>
+
+  <div id="timeout-message">
+    Parece que está inativo. Precisa de ajuda?
+  </div>
+
+  <script>
+    let inactivityTimer;
+
+    function startInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        document.getElementById('timeout-message').style.display = 'block';
+      }, 10000); // 10 segundos
+    }
+
+    window.onload = startInactivityTimer;
+    document.addEventListener('mousemove', startInactivityTimer);
+    document.addEventListener('keydown', startInactivityTimer);
+  </script>
 </body>
 </html>
