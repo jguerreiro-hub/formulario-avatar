@@ -6,6 +6,7 @@
 
   <!-- Avatar da Soul Machines -->
   <script 
+    id="sm-widget"
     src="https://static.soulmachines.com/widget-snippet-1.12.0.min.js" 
     data-sm-api-key="eyJzb3VsSWQiOiJkZG5hLWlzY3RlODQ0ZC0tby1tZXUtcHJpbWVpcm8tcHJvaiIsImF1dGhTZXJ2ZXIiOiJodHRwczovL2RoLnNvdWxtYWNoaW5lcy5jbG91ZC9hcGkvand0IiwiYXV0aFRva2VuIjoiYXBpa2V5X3YxXzczNTZlOTYxLTc0YzgtNDNkOC1hYWM1LWU5ZmYzZDA5ZDhkNCJ9"
     data-sm-layout="fullFrame">
@@ -39,21 +40,38 @@
   </style>
 </head>
 <body>
-  <h2>Por favor responda ao inquérito seguinte:</h2>
+  <h2>Por favor responda ao inquérito abaixo</h2>
 
   <iframe src="https://iscteiul.co1.qualtrics.com/jfe/form/SV_0feM1WMf9sHxTAa"></iframe>
 
   <div id="timeout-message">
-    Parece que está inativo. Precisa de ajuda?
+    A sessão com o avatar foi encerrada por inatividade.
   </div>
 
   <script>
     let inactivityTimer;
 
+    function closeAvatar() {
+      // Remove o iframe do avatar da Soul Machines
+      const smIframe = document.querySelector('iframe[src*="soulmachines"]');
+      if (smIframe) {
+        smIframe.remove();
+      }
+
+      // Remove o script também (opcional)
+      const smScript = document.getElementById('sm-widget');
+      if (smScript) {
+        smScript.remove();
+      }
+
+      // Mostra a mensagem ao utilizador
+      document.getElementById('timeout-message').style.display = 'block';
+    }
+
     function startInactivityTimer() {
       clearTimeout(inactivityTimer);
       inactivityTimer = setTimeout(() => {
-        document.getElementById('timeout-message').style.display = 'block';
+        closeAvatar();
       }, 10000); // 10 segundos
     }
 
