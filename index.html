@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Inquérito com Avatar</title>
 
-  <!-- Avatar da Soul Machines -->
+  <!-- Script do avatar da Soul Machines -->
   <script 
     id="sm-widget"
     src="https://static.soulmachines.com/widget-snippet-1.12.0.min.js" 
@@ -40,7 +40,7 @@
   </style>
 </head>
 <body>
-  <h2>Por favor responda ao inquérito que vai assistir</h2>
+  <h2>Por favor responda ao inquérito abaixo</h2>
 
   <iframe src="https://iscteiul.co1.qualtrics.com/jfe/form/SV_0feM1WMf9sHxTAa"></iframe>
 
@@ -52,16 +52,20 @@
     let inactivityTimer;
 
     function closeAvatar() {
-      const smIframe = document.getElementById('sm-widget-iframe');
-      if (smIframe) {
-        smIframe.remove();
+      // Remove o contêiner do avatar
+      const container = document.getElementById('sm-widget-container');
+      if (container) {
+        container.remove();
+        console.log("Avatar removido com sucesso.");
+      } else {
+        console.log("Avatar não encontrado.");
       }
 
+      // Opcional: remover o script também
       const smScript = document.getElementById('sm-widget');
-      if (smScript) {
-        smScript.remove();
-      }
+      if (smScript) smScript.remove();
 
+      // Mostrar mensagem ao utilizador
       document.getElementById('timeout-message').style.display = 'block';
     }
 
@@ -70,7 +74,10 @@
       inactivityTimer = setTimeout(closeAvatar, 10000); // 10 segundos
     }
 
+    // Iniciar ao carregar
     window.onload = startInactivityTimer;
+
+    // Reiniciar temporizador com qualquer atividade
     document.addEventListener('mousemove', startInactivityTimer);
     document.addEventListener('keydown', startInactivityTimer);
   </script>
